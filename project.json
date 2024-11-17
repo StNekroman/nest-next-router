@@ -1,5 +1,5 @@
 {
-  "name": "nest-next2",
+  "name": "nest-next-router",
   "$schema": "node_modules/nx/schemas/project-schema.json",
   "includedScripts": [],
   "sourceRoot": "src",
@@ -12,13 +12,13 @@
       "defaultConfiguration": "production",
       "options": {
         "platform": "node",
-        "outputPath": "dist/nest-next2",
+        "outputPath": "dist",
         "format": ["cjs"],
         "bundle": false,
-        "main": "src/main.ts",
+        "main": "src/index.ts",
         "tsConfig": "tsconfig.app.json",
-        "assets": ["src/assets"],
-        "generatePackageJson": true,
+        "assets": [],
+        "generatePackageJson": false,
         "esbuildOptions": {
           "sourcemap": true,
           "outExtension": {
@@ -30,7 +30,7 @@
         "development": {},
         "production": {
           "esbuildOptions": {
-            "sourcemap": false,
+            "sourcemap": true,
             "outExtension": {
               ".js": ".js"
             }
@@ -43,15 +43,15 @@
       "defaultConfiguration": "development",
       "dependsOn": ["build"],
       "options": {
-        "buildTarget": "nest-next2:build",
+        "buildTarget": "nest-next-router:build",
         "runBuildTargetDependencies": false
       },
       "configurations": {
         "development": {
-          "buildTarget": "nest-next2:build:development"
+          "buildTarget": "nest-next-router:build:development"
         },
         "production": {
-          "buildTarget": "nest-next2:build:production"
+          "buildTarget": "nest-next-router:build:production"
         }
       }
     }

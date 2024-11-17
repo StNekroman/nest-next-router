@@ -3,7 +3,7 @@ import { join } from 'path';
 
 describe('CLI tests', () => {
   it('should print a message', () => {
-    const cliPath = join(process.cwd(), 'dist/nest-next2');
+    const cliPath = join(process.cwd(), 'dist/nest-next-router');
 
     const output = execSync(`node ${cliPath}`).toString();
 
