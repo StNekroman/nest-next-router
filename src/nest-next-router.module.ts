@@ -3,6 +3,7 @@ import { NextService } from './next.service';
 import { ExpressNestNextRouteMiddleware } from './express-nest-next-router.middleware';
 import { NextServer, NEST_NEXT_ROUTE_OPTIONS, NestNextRouterModuleOptions, HttpServerType } from './types';
 import { FastifyNestNextRouteMiddleware } from './fastify-nest-next-router.middleware';
+import { HttpAdapterHost } from '@nestjs/core';
 
 @Global()
 @Module({})
@@ -23,7 +24,7 @@ export class NestNextRouterModule implements NestModule {
         },
         {
           provide: NextService,
-          useFactory: () => {
+          useFactory: (): NextService => {
             return new NextService(next);
           },
         },
