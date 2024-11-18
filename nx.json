@@ -16,7 +16,7 @@
   },
   "nxCloudId": "6739a3fad646423e81d0b054",
   "targetDefaults": {
-    "@nx/esbuild:esbuild": {
+    "@nx/js:tsc": {
       "cache": true,
       "dependsOn": ["^build"],
       "inputs": ["production", "^production"]

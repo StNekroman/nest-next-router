@@ -1,13 +1,15 @@
-import { DynamicModule, Inject, MiddlewareConsumer, Module, NestModule } from '@nestjs/common';
+import { DynamicModule, Global, Inject, MiddlewareConsumer, Module, NestModule } from '@nestjs/common';
 import { NextService } from './next.service';
-import { NestNextRouteMiddleware } from './nest-next-router.middleware';
-import { NextServer, NEST_NEXT_ROUTE_OPTIONS, NestNextRouterModuleOptions } from './types';
+import { ExpressNestNextRouteMiddleware } from './express-nest-next-router.middleware';
+import { NextServer, NEST_NEXT_ROUTE_OPTIONS, NestNextRouterModuleOptions, HttpServerType } from './types';
+import { FastifyNestNextRouteMiddleware } from './fastify-nest-next-router.middleware';
 
-@Module({
-  providers: [],
-})
+@Global()
+@Module({})
 export class NestNextRouterModule implements NestModule {
-  constructor(@Inject(NEST_NEXT_ROUTE_OPTIONS) private readonly options: NestNextRouterModuleOptions) {}
+  constructor(@Inject(NEST_NEXT_ROUTE_OPTIONS) private readonly options: NestNextRouterModuleOptions) {
+    this.options.serverType ??= HttpServerType.EXPRESS;
+  }
 
   public static async forRootAsync(next: NextServer, options: NestNextRouterModuleOptions): Promise<DynamicModule> {
     await next.prepare();
@@ -26,10 +28,15 @@ export class NestNextRouterModule implements NestModule {
           },
         },
       ],
+      exports: [NextService, NEST_NEXT_ROUTE_OPTIONS],
     };
   }
 
   public configure(consumer: MiddlewareConsumer) {
-    consumer.apply(NestNextRouteMiddleware).forRoutes('*');
+    if (this.options.serverType === HttpServerType.FASTIFY) {
+      consumer.apply(FastifyNestNextRouteMiddleware).forRoutes('*');
+    } else {
+      consumer.apply(ExpressNestNextRouteMiddleware).forRoutes('*');
+    }
   }
 }
