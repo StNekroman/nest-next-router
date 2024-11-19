@@ -1,9 +1,8 @@
 import { DynamicModule, Global, Inject, MiddlewareConsumer, Module, NestModule } from '@nestjs/common';
-import { NextService } from './next.service';
 import { ExpressNestNextRouteMiddleware } from './express-nest-next-router.middleware';
-import { NextServer, NEST_NEXT_ROUTE_OPTIONS, NestNextRouterModuleOptions, HttpServerType } from './types';
 import { FastifyNestNextRouteMiddleware } from './fastify-nest-next-router.middleware';
-import { HttpAdapterHost } from '@nestjs/core';
+import { NextService } from './next.service';
+import { HttpServerType, NEST_NEXT_ROUTE_OPTIONS, NestNextRouterModuleOptions, NextServer } from './types';
 
 @Global()
 @Module({})

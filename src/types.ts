@@ -1,16 +1,8 @@
 import type * as express from 'express';
-import type { FastifyRequest, FastifyReply } from 'fastify';
+import type { FastifyReply, FastifyRequest } from 'fastify';
 import { IncomingMessage, ServerResponse } from 'http';
 import createServer from 'next';
 import { NextParsedUrlQuery, NextUrlWithParsedQuery } from 'next/dist/server/request-meta';
-
-export function isFastifyRequest(request: express.Request | FastifyRequest): request is FastifyRequest {
-  return (request as FastifyRequest).raw !== undefined;
-}
-
-export function isFastifyResponse(response: FastifyReply): response is FastifyReply {
-  return (response as FastifyReply).raw !== undefined;
-}
 
 export type NextServer = Pick<
   ReturnType<typeof createServer>,
@@ -27,14 +19,14 @@ export type NextServer = Pick<
 }; // hacky solution to expose NextServer, because somebody "smart" included private unique symbol to original NextServer declaration typing
 
 export enum RequestRouteHandleType {
-  NEST,
-  NEXT,
-  CUSTOM,
+  NEST = 'NEST',
+  NEXT = 'NEXT',
+  CUSTOM = 'CUSTOM',
 }
 
 export enum HttpServerType {
-  EXPRESS,
-  FASTIFY,
+  EXPRESS = 'EXPRESS',
+  FASTIFY = 'FASTIFY',
 }
 
 export type NestNextRouterModuleOptions =
