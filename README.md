@@ -9,6 +9,20 @@ Main host is Nest (over express/Fastify), which runs inside Next custom server.
 
 Main idea of routing request between two systems - top-level request switcher/router.
 
+## Installation
+
+npm
+
+```shell
+npm i @stnekroman/nest-next-router
+```
+
+yarn
+
+```shell
+yarn add @stnekroman/nest-next-router
+```
+
 # Basic usage with express.js
 
 ```TypeScript
