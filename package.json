@@ -1,6 +1,7 @@
 {
   "name": "@stnekroman/nest-next-router",
   "version": "0.0.3",
+  "description": "Bridge between Nest to Next, top-level request router",
   "license": "MIT",
   "main": "./dist/index.js",
   "exports": {
@@ -10,14 +11,23 @@
     "name": "StNekroman",
     "email": "StNekroman@gmail.com"
   },
+   "keywords": [
+    "TypeScript",
+    "TS",
+    "Nest",
+    "Next",
+    "Nest-Next",
+    "router"
+  ],
   "scripts": {
     "prebuild": "rimraf dist",
     "start": "nx serve",
     "build": "nx build",
-    "test": "nx test"
+    "test": "nx test",
+    "npm-publish": "npm publish --access public",
+    "npm-publish-github": "npm publish --access public --registry=https://npm.pkg.github.com"
   },
   "dependencies": {
-    
   },
   "peerDependencies": {
     "@nestjs/common": "^10.4.8",
