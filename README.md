@@ -86,7 +86,7 @@ Technically, you can write your custom route rules to EACH route (favicon.ico) i
 # I want Next render engine in Nest. Now!
 
 First of all, you don't need that - just use Next file-based routing and that's all.  
-But in case if you **really** need Next render engine on Nest side, you can do it (while not recommended):
+But in case if you **really** need Next render engine on Nest side and insist, you can do it (while not recommended):
 
 ```TypeScript
 import {
