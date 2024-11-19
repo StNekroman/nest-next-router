@@ -1,11 +1,14 @@
 {
   "name": "@stnekroman/nest-next-router",
-  "version": "0.0.3",
+  "version": "0.0.5",
   "description": "Bridge between Nest to Next, top-level request router",
   "license": "MIT",
   "main": "./dist/index.js",
   "exports": {
     ".": "./dist/index.js"
+  },
+  "repository": {
+    "url": "git+https://github.com/StNekroman/nest-next-router.git"
   },
   "author": {
     "name": "StNekroman",
