@@ -39,7 +39,7 @@ import {
       }),
       {
         routeRequest: async (request: express.Request, response: express.Response): Promise<RequestRouteHandleType> => {
-          if (request.baseUrl.startsWith('/api') || request.baseUrl.startsWith('/v1/api')) {
+          if (request.url.startsWith('/rest')) {
             return RequestRouteHandleType.NEST; // forward all /api requests to Nest backend
           } else {
             return RequestRouteHandleType.NEXT; // all other requests will go to Next
@@ -69,7 +69,7 @@ import {
       {
         serverType: HttpServerType.FASTIFY,
         routeRequest: async (request: FastifyRequest, response: FastifyReply): Promise<RequestRouteHandleType> => {
-          if (request.baseUrl.startsWith('/api') || request.baseUrl.startsWith('/v1/api')) {
+          if (request.url.startsWith('/rest')) {
             return RequestRouteHandleType.NEST; // forward all /api requests to Nest backend
           } else {
             return RequestRouteHandleType.NEXT; // all other requests will go to Next
@@ -117,7 +117,7 @@ import {
       }),
       {
         routeRequest: async (request: express.Request, response: express.Response): Promise<RequestRouteHandleType> => {
-          if (request.baseUrl.startsWith('/api') || request.baseUrl.startsWith('/v1/api')) {
+          if (request.url.startsWith('/rest')) {
             return RequestRouteHandleType.NEST; // forward all /api requests to Nest backend
           } else {
             return RequestRouteHandleType.NEXT; // all other requests will go to Next
@@ -154,6 +154,55 @@ export class RootModule {}
 
 That's it. You can apply that filter globalle, per controller or per route basis.  
 Looking on how filter is done you can craft your own and apply where you need.
+
+# Best practices around routing
+
+Avoid use of
+
+```TypeScript
+app.setGlobalPrefix('rest');
+```
+
+Because in this case Nest will just reject any request not in scope of `/rest`.  
+So it will be impossible to forward such requests to Next.  
+Better to use config like:
+
+```TypeScript
+app.setGlobalPrefix('rest', {
+  exclude: ['/'],
+});
+```
+
+In this case Nest will continue to serve requests at root, and will continue to call middleware for them.
+Or, if that is not suitable for you for some magic reason, you have two other options:
+
+**Option I**  
+Manually declare fully-qualified path on each RestController via `@Controller` decorator.  
+**Option II**  
+According to https://docs.nestjs.com/recipes/router-module
+
+```TypeScript
+@Module({
+  imports: [
+    // ...
+
+    ItemsModule,
+
+    RouterModule.register([
+      {
+        path: '/rest',
+        children: [
+          {
+            path: '/items',
+            module: ItemsModule,
+          },
+        ],
+      },
+    ]),
+  ]
+})
+export class RootModule {}
+```
 
 # API
 
