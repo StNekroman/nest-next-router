@@ -91,7 +91,7 @@ Thus this makes usage of top-level routing very versatile.
 
 And! Nest-next provides Next render engine to Nest, and allows only that.  
 So routing of pages is done on Nest side. Thus, if someday you will decide to split Nest/Next to separate microservices (in order to scale horizontally) - you will need to fallback to Next routing anaway. So more refactoring.  
-While Next file-based routing is more versatile (especially for SEO) than Nest, so whay wire yourself to Nest view/render routing?
+While Next file-based routing with App Router (introduced in Next 13) is more versatile (especially for SEO) than Nest, so whay wire yourself to Nest view/render routing?
 
 And! Even more, Nest-next provides render engine, but only oine bridge between Nest->Next remains - it's ability to route 404 errors from Nest to Next, nothing more.  
 That means, that you loose ability (in out-of-the box configuration) to serve on Next things like: favicon.ico, Next metadata (robots.txt), static files (CSS bundles, images from Next directories)  
